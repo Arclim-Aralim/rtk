@@ -1,0 +1,14 @@
+node_modules/
+dist/
+bin/
+obj/
+__pycache__/
+.venv/
+.env
+data/
+artifacts/
+*.log
+*.tsbuildinfo
+runtime/
+logs/
+run/

@@ -1,0 +1,13 @@
+**/node_modules
+**/bin
+**/obj
+**/__pycache__
+**/.venv
+frontend/dist
+artifacts
+runtime
+data
+logs
+run
+.env
+.git

@@ -1,0 +1,33 @@
+services:
+  analytics:
+    build:
+      context: .
+      dockerfile: services/analytics/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - analytics-data:/data
+    networks: [backend]
+  gateway:
+    build:
+      context: .
+      dockerfile: services/gateway/Dockerfile
+    restart: unless-stopped
+    environment:
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      TEMP_SHOW_TOTP_KEY_ON_LOGIN: ${TEMP_SHOW_TOTP_KEY_ON_LOGIN:-false}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set a random ADMIN_PASSWORD in .env}
+      ANALYTICS_URL: http://analytics:8091/
+    ports: ["8080:8080"]
+    volumes:
+      - gateway-data:/data
+    depends_on:
+      analytics:
+        condition: service_healthy
+    networks: [backend, frontend]
+networks:
+  backend:
+    internal: true
+  frontend: {}
+volumes:
+  analytics-data: {}
+  gateway-data: {}

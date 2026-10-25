@@ -1,0 +1,7 @@
+services:
+  analytics:
+    volumes:
+      - ./data/analytics:/data
+  gateway:
+    volumes:
+      - ./data/gateway:/data
